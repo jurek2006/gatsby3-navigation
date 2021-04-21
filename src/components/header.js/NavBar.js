@@ -1,62 +1,73 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GoThreeBars, GoX } from 'react-icons/go';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 
-const NavBar = () => {
-  const [navbarOpen, setNavbarOpen] = useState(false);
+class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      navbarOpen: false,
+    };
+  }
 
-  return (
-    <StyledHeaderWrapper>
-      <div className={`overlay ${navbarOpen && 'isVisible'} `}>
-        {/* element to mask content in the back when mobile menu opened - it gets .isVisible which is responsible for showing on mobile  */}
-      </div>
-      <header className="header">
-        <div className="navContainer">
-          <nav className="navPrimary" aria-label="Primary navigation">
-            <div className="logo">Logo</div>
-            <button
-              className="menuBtn"
-              onClick={() => setNavbarOpen(!navbarOpen)}
-              type="button"
-              aria-expanded={String(navbarOpen)}
-              aria-controls="navPrimaryItems"
-            >
-              <span className="menuBtn__icon">
-                {navbarOpen ? <GoX size={30} /> : <GoThreeBars size={30} />}
-              </span>
-              <span className="menuBtn__label visually-hidden">
-                {navbarOpen ? 'Close menu' : 'Open menu'}
-              </span>
-            </button>
-            <ul
-              className={`navPrimary__responsiveItems ${
-                navbarOpen && 'isVisible'
-              } `}
-              id="navPrimaryItems"
-            >
-              <li className="navPrimary__item">
-                <Link to="/" class="nav__link">
-                  Home
-                </Link>
-              </li>
-              <li className="navPrimary__item">
-                <Link to="/one" class="nav__link">
-                  One
-                </Link>
-              </li>
-              <li className="navPrimary__item">
-                <Link to="/two" class="nav__link">
-                  Two
-                </Link>
-              </li>
-            </ul>
-          </nav>
+  render() {
+    const { navbarOpen } = this.state;
+    const setNavbarOpen = (navbarNewStatus) =>
+      this.setState({ navbarOpen: navbarNewStatus });
+
+    return (
+      <StyledHeaderWrapper>
+        <div className={`overlay ${navbarOpen && 'isVisible'} `}>
+          {/* element to mask content in the back when mobile menu opened - it gets .isVisible which is responsible for showing on mobile  */}
         </div>
-      </header>
-    </StyledHeaderWrapper>
-  );
-};
+        <header className="header">
+          <div className="navContainer">
+            <nav className="navPrimary" aria-label="Primary navigation">
+              <div className="logo">Logo</div>
+              <button
+                className="menuBtn"
+                onClick={() => setNavbarOpen(!navbarOpen)}
+                type="button"
+                aria-expanded={String(navbarOpen)}
+                aria-controls="navPrimaryItems"
+              >
+                <span className="menuBtn__icon">
+                  {navbarOpen ? <GoX size={30} /> : <GoThreeBars size={30} />}
+                </span>
+                <span className="menuBtn__label visually-hidden">
+                  {navbarOpen ? 'Close menu' : 'Open menu'}
+                </span>
+              </button>
+              <ul
+                className={`navPrimary__responsiveItems ${
+                  navbarOpen && 'isVisible'
+                } `}
+                id="navPrimaryItems"
+              >
+                <li className="navPrimary__item">
+                  <Link to="/" className="nav__link">
+                    Home
+                  </Link>
+                </li>
+                <li className="navPrimary__item">
+                  <Link to="/one" className="nav__link">
+                    One
+                  </Link>
+                </li>
+                <li className="navPrimary__item">
+                  <Link to="/two" className="nav__link">
+                    Two
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+      </StyledHeaderWrapper>
+    );
+  }
+}
 
 export default NavBar;
 
