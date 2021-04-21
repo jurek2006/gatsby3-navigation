@@ -1,7 +1,12 @@
 import React from 'react';
 import { GoThreeBars, GoX } from 'react-icons/go';
 import { Link } from 'gatsby';
+import mousetrap from 'mousetrap';
 import styled from 'styled-components';
+
+/* 
+  Example of using mousetrap: https://github.com/gatsbyjs/gatsby/blob/master/examples/gatsbygram/src/components/modal.js#L23-L27
+*/
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -11,10 +16,30 @@ class NavBar extends React.Component {
     };
   }
 
+  // binding & unbinding keyboard events
+  componentDidMount() {
+    mousetrap.bind(`esc`, () => this.closeNavbar());
+  }
+
+  componentWillUnmount() {
+    mousetrap.unbind(`esc`);
+  }
+
+  // methods for opening/closing navbar
+  closeNavbar() {
+    const { navbarOpen } = this.state;
+    if (navbarOpen) {
+      this.setState({ navbarOpen: false });
+    }
+  }
+
+  toggleNavbarOpen() {
+    const { navbarOpen } = this.state;
+    this.setState({ navbarOpen: !navbarOpen });
+  }
+
   render() {
     const { navbarOpen } = this.state;
-    const setNavbarOpen = (navbarNewStatus) =>
-      this.setState({ navbarOpen: navbarNewStatus });
 
     return (
       <StyledHeaderWrapper>
@@ -27,7 +52,7 @@ class NavBar extends React.Component {
               <div className="logo">Logo</div>
               <button
                 className="menuBtn"
-                onClick={() => setNavbarOpen(!navbarOpen)}
+                onClick={() => this.toggleNavbarOpen()}
                 type="button"
                 aria-expanded={String(navbarOpen)}
                 aria-controls="navPrimaryItems"
