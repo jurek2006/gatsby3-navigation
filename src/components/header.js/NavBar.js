@@ -2,10 +2,18 @@ import React from 'react';
 import { GoThreeBars, GoX } from 'react-icons/go';
 import { Link } from 'gatsby';
 import mousetrap from 'mousetrap';
+import FocusTrap from 'focus-trap-react';
 import styled from 'styled-components';
 
 /* 
   Example of using mousetrap: https://github.com/gatsbyjs/gatsby/blob/master/examples/gatsbygram/src/components/modal.js#L23-L27
+  Example of using focus-trap-react: https://github.com/focus-trap/focus-trap-react/blob/master/demo/js/demo-special-element.js
+
+  FocusTrap component comes from focus-trap-react, but here is controlled by navbarOpen 
+  - focus is trapped in mobile menu only when it's open
+
+  TODO: there's an issue when mobile menu is opened (and focus trapped) and screen resizes to desktop 
+  menu still remains with trapped focus
 */
 
 class NavBar extends React.Component {
@@ -48,45 +56,47 @@ class NavBar extends React.Component {
         </div>
         <header className="header">
           <div className="navContainer">
-            <nav className="navPrimary" aria-label="Primary navigation">
-              <div className="logo">Logo</div>
-              <button
-                className="menuBtn"
-                onClick={() => this.toggleNavbarOpen()}
-                type="button"
-                aria-expanded={String(navbarOpen)}
-                aria-controls="navPrimaryItems"
-              >
-                <span className="menuBtn__icon">
-                  {navbarOpen ? <GoX size={30} /> : <GoThreeBars size={30} />}
-                </span>
-                <span className="menuBtn__label visually-hidden">
-                  {navbarOpen ? 'Close menu' : 'Open menu'}
-                </span>
-              </button>
-              <ul
-                className={`navPrimary__responsiveItems ${
-                  navbarOpen && 'isVisible'
-                } `}
-                id="navPrimaryItems"
-              >
-                <li className="navPrimary__item">
-                  <Link to="/" className="nav__link">
-                    Home
-                  </Link>
-                </li>
-                <li className="navPrimary__item">
-                  <Link to="/one" className="nav__link">
-                    One
-                  </Link>
-                </li>
-                <li className="navPrimary__item">
-                  <Link to="/two" className="nav__link">
-                    Two
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+            <FocusTrap active={navbarOpen}>
+              <nav className="navPrimary" aria-label="Primary navigation">
+                <div className="logo">Logo</div>
+                <button
+                  className="menuBtn"
+                  onClick={() => this.toggleNavbarOpen()}
+                  type="button"
+                  aria-expanded={String(navbarOpen)}
+                  aria-controls="navPrimaryItems"
+                >
+                  <span className="menuBtn__icon">
+                    {navbarOpen ? <GoX size={30} /> : <GoThreeBars size={30} />}
+                  </span>
+                  <span className="menuBtn__label visually-hidden">
+                    {navbarOpen ? 'Close menu' : 'Open menu'}
+                  </span>
+                </button>
+                <ul
+                  className={`navPrimary__responsiveItems ${
+                    navbarOpen && 'isVisible'
+                  } `}
+                  id="navPrimaryItems"
+                >
+                  <li className="navPrimary__item">
+                    <Link to="/" className="nav__link">
+                      Home
+                    </Link>
+                  </li>
+                  <li className="navPrimary__item">
+                    <Link to="/one" className="nav__link">
+                      One
+                    </Link>
+                  </li>
+                  <li className="navPrimary__item">
+                    <Link to="/two" className="nav__link">
+                      Two
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </FocusTrap>
           </div>
         </header>
       </StyledHeaderWrapper>
