@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GoThreeBars, GoX } from 'react-icons/go';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 
@@ -21,7 +22,12 @@ const NavBar = () => {
               aria-expanded={String(navbarOpen)}
               aria-controls="navPrimaryItems"
             >
-              Menu
+              <span className="menuBtn__icon">
+                {navbarOpen ? <GoX size={30} /> : <GoThreeBars size={30} />}
+              </span>
+              <span className="menuBtn__label visually-hidden">
+                {navbarOpen ? 'Close menu' : 'Open menu'}
+              </span>
             </button>
             <ul
               className={`navPrimary__responsiveItems ${
@@ -80,6 +86,7 @@ const StyledHeaderWrapper = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     border-bottom: 2px solid #ccc;
+    padding: 1rem;
   }
 
   .navPrimary__responsiveItems {
@@ -95,6 +102,17 @@ const StyledHeaderWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .menuBtn {
+    background-color: blueviolet;
+    color: white;
+    border: none;
+
+    &__icon svg {
+      height: 2rem;
+      width: 2rem;
+    }
   }
 
   .logo {
