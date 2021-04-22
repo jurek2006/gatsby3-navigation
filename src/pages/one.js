@@ -6,7 +6,8 @@ const One = () => (
     <h1>One</h1>
     <p>
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo minus, rem
-      ullam quo magnam accusamus vel dolore soluta quos, repellendus omnis
+      ullam quo magnam accusamus vel dolore soluta quos, repellendus omnis{' '}
+      <a href="#">sit</a>
       labore eos facilis quam consequuntur reprehenderit quasi, non placeat!
     </p>
   </Layout>

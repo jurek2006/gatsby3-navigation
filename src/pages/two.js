@@ -7,7 +7,8 @@ const Two = () => (
     <p>
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo minus, rem
       ullam quo magnam accusamus vel dolore soluta quos, repellendus omnis
-      labore eos facilis quam consequuntur reprehenderit quasi, non placeat!
+      labore eos facilis quam consequuntur reprehenderit quasi,
+      <a href="#">sit</a> non placeat!
     </p>
   </Layout>
 );
