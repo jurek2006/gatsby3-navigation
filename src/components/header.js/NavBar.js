@@ -71,7 +71,7 @@ class NavBar extends React.Component {
         </div>
         <header className="header">
           <div className="navContainer">
-            <FocusTrap nav__link--active={navbarOpen}>
+            <FocusTrap active={navbarOpen}>
               <nav className="navPrimary" aria-label="Primary navigation">
                 <div className="logo">Logo</div>
                 <button
