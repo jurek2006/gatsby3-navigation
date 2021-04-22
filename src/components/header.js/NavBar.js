@@ -12,8 +12,12 @@ import styled from 'styled-components';
   FocusTrap component comes from focus-trap-react, but here is controlled by navbarOpen 
   - focus is trapped in mobile menu only when it's open
 
-  TODO: there's an issue when mobile menu is opened (and focus trapped) and screen resizes to desktop 
-  menu still remains with trapped focus
+  When screen resized to desktop - deactivates focus trap by using closeNavbar method 
+  it is based on css styles (and media queries)
+  (it uses computed style of menuButton. If it's 'display' is 'none' - it is desktop size)
+
+  More about the solution: https://www.notion.so/jurekskowron/2dfe0a8598bb4067ac6179e49812bb3a?v=814caae5e9ab44928704fa26d0dac277&p=f998b61f2246437ab160e5d5d31d2c5c
+
 */
 
 class NavBar extends React.Component {
@@ -27,16 +31,27 @@ class NavBar extends React.Component {
   // binding & unbinding keyboard events
   componentDidMount() {
     mousetrap.bind(`esc`, () => this.closeNavbar());
+
+    if (typeof window !== `undefined`) {
+      window.addEventListener(
+        'resize',
+        handleResizeNavBar.bind(this, () => this.closeNavbar())
+      );
+    }
   }
 
   componentWillUnmount() {
     mousetrap.unbind(`esc`);
+    if (typeof window !== `undefined`) {
+      window.removeEventListener('resize', handleResizeNavBar);
+    }
   }
 
   // methods for opening/closing navbar
   closeNavbar() {
     const { navbarOpen } = this.state;
     if (navbarOpen) {
+      console.log('close navbar');
       this.setState({ navbarOpen: false });
     }
   }
@@ -65,6 +80,7 @@ class NavBar extends React.Component {
                   type="button"
                   aria-expanded={String(navbarOpen)}
                   aria-controls="navPrimaryItems"
+                  ref={(node) => (this.menuBtn = node)}
                 >
                   <span className="menuBtn__icon">
                     {navbarOpen ? <GoX size={30} /> : <GoThreeBars size={30} />}
@@ -105,6 +121,28 @@ class NavBar extends React.Component {
 }
 
 export default NavBar;
+
+function handleResizeNavBar() {
+  // runs method closeNavbar when window resized and there's this.menuBtn element
+
+  // needs NavBar component passed (binded) to allow ref'ed element to use like: this.menuBtn
+  // and target method closeNavbar()
+  if (
+    typeof window !== `undefined` &&
+    this.menuBtn &&
+    this.menuBtn instanceof HTMLElement &&
+    this.closeNavbar
+  ) {
+    // if menuBtn is not displayed (none) - force to close navbar because we're on desktop resolution
+    if (window.getComputedStyle(this.menuBtn).display === `none`) {
+      this.closeNavbar();
+    }
+  } else {
+    console.warn(`can't use getComputedStyle on ${this.menuBtn} element`);
+  }
+}
+
+// ========== styled components =============
 
 const StyledHeaderWrapper = styled.div`
   .header {
