@@ -225,6 +225,7 @@ const StyledHeaderWrapper = styled.div`
     }
 
     .menuBtn {
+      /* on display value is based handleResizeNavbar() */
       display: none;
     }
 
