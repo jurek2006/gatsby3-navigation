@@ -71,7 +71,7 @@ class NavBar extends React.Component {
         </div>
         <header className="header">
           <div className="navContainer">
-            <FocusTrap active={navbarOpen}>
+            <FocusTrap nav__link--active={navbarOpen}>
               <nav className="navPrimary" aria-label="Primary navigation">
                 <div className="logo">Logo</div>
                 <button
@@ -96,17 +96,29 @@ class NavBar extends React.Component {
                   id="navPrimaryItems"
                 >
                   <li className="navPrimary__item">
-                    <Link to="/" className="nav__link">
+                    <Link
+                      to="/"
+                      className="nav__link"
+                      activeClassName="nav__link--active"
+                    >
                       Home
                     </Link>
                   </li>
                   <li className="navPrimary__item">
-                    <Link to="/one" className="nav__link">
+                    <Link
+                      to="/one"
+                      className="nav__link"
+                      activeClassName="nav__link--active"
+                    >
                       One
                     </Link>
                   </li>
                   <li className="navPrimary__item">
-                    <Link to="/two" className="nav__link">
+                    <Link
+                      to="/two"
+                      className="nav__link"
+                      activeClassName="nav__link--active"
+                    >
                       Two
                     </Link>
                   </li>
@@ -197,6 +209,10 @@ const StyledHeaderWrapper = styled.div`
       height: 2rem;
       width: 2rem;
     }
+  }
+
+  .nav__link--active {
+    color: red;
   }
 
   .logo {
