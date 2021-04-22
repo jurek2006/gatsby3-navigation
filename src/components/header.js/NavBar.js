@@ -151,8 +151,6 @@ function handleResizeNavBar() {
     if (window.getComputedStyle(this.menuBtn).display === `none`) {
       this.closeNavbar();
     }
-  } else {
-    console.warn(`can't use getComputedStyle on ${this.menuBtn} element`);
   }
 }
 
