@@ -73,7 +73,9 @@ class NavBar extends React.Component {
           <div className="navContainer">
             <FocusTrap active={navbarOpen}>
               <nav className="navPrimary" aria-label="Primary navigation">
-                <div className="logo">Logo</div>
+                <div className="logo">
+                  <a href="#">Logo</a>
+                </div>
                 <button
                   className="menuBtn"
                   onClick={() => this.toggleNavbarOpen()}
