@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import React from 'react';
 import { GoThreeBars, GoX } from 'react-icons/go';
 import { Link } from 'gatsby';
@@ -51,7 +52,6 @@ class NavBar extends React.Component {
   closeNavbar() {
     const { navbarOpen } = this.state;
     if (navbarOpen) {
-      console.log('close navbar');
       this.setState({ navbarOpen: false });
     }
   }
@@ -66,12 +66,22 @@ class NavBar extends React.Component {
 
     return (
       <StyledHeaderWrapper>
-        <div className={`overlay ${navbarOpen && 'isVisible'} `}>
+        {/* overlay is only for visual users - aditional way to close mobile menu */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+        <div
+          className={`overlay ${navbarOpen && 'isVisible'}`}
+          onClick={() => this.closeNavbar()}
+        >
           {/* element to mask content in the back when mobile menu opened - it gets .isVisible which is responsible for showing on mobile  */}
         </div>
         <header className="header">
           <div className="navContainer">
-            <FocusTrap active={navbarOpen}>
+            <FocusTrap
+              active={navbarOpen}
+              focusTrapOptions={{
+                allowOutsideClick: true,
+              }}
+            >
               <nav className="navPrimary" aria-label="Primary navigation">
                 <div className="logo">
                   <Link to="/">Logo</Link>
