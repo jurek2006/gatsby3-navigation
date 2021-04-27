@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyles from '../styles/GlobalStyles';
-import NavBar from './header.js/NavBar';
+import Header from './header.js/Header';
 
 const Layout = ({ children }) => (
   <StyledLayout>
     <GlobalStyles />
     <title>Home Page</title>
-    <NavBar />
+    <Header />
     <main>{children}</main>
   </StyledLayout>
 );

@@ -21,7 +21,7 @@ import styled from 'styled-components';
 
 */
 
-class NavBar extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -144,12 +144,12 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+export default Header;
 
 function handleResizeNavBar() {
   // runs method closeNavbar when window resized and there's this.menuBtn element
 
-  // needs NavBar component passed (binded) to allow ref'ed element to use like: this.menuBtn
+  // needs Header component passed (binded) to allow ref'ed element to use like: this.menuBtn
   // and target method closeNavbar()
   if (
     typeof window !== `undefined` &&
