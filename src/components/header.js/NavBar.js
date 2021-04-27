@@ -167,6 +167,9 @@ function handleResizeNavBar() {
 // ========== styled components =============
 
 const StyledHeaderWrapper = styled.div`
+  --responsiveItemsMargin--desktop: 0;
+  --responsiveItemsMargin--mobile: 1rem 0;
+
   .header {
     position: relative;
     background-color: white;
@@ -202,6 +205,7 @@ const StyledHeaderWrapper = styled.div`
 
     list-style: none;
     padding: 0;
+    margin: var(--responsiveItemsMargin--mobile);
   }
 
   .navPrimary__responsiveItems.isVisible {
@@ -221,8 +225,48 @@ const StyledHeaderWrapper = styled.div`
     }
   }
 
-  .nav__link--active {
-    color: red;
+  .navPrimary__item {
+    /* for nav__link to be full width on mobile */
+    width: 100%;
+    display: inline-flex;
+  }
+
+  .nav__link {
+    --navLinkColor: blue;
+    --underlineBorderColor: transparent;
+    --navLinkPadding--desktop: 0.5rem;
+    --navLinkPadding--mobile: 1rem;
+    --navLinkMargin--desktop: 0 0.5rem;
+    --navLinkMargin--mobile: 0.5rem 0;
+
+    border-bottom: 2px solid;
+    border-color: var(--underlineBorderColor);
+    color: var(--navLinkColor);
+    text-decoration: none;
+    padding: var(--navLinkPadding--mobile);
+    margin: var(--navLinkMargin--mobile);
+    width: 100%;
+
+    /* center text in link vertically and horizontally */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    :hover,
+    :focus {
+      --underlineBorderColor: inherit;
+    }
+
+    &--active {
+      --navLinkColor: red;
+      --underlineBorderColor: inherit;
+      font-weight: 700;
+    }
+
+    @media (min-width: 34em) {
+      padding: var(--navLinkPadding--desktop);
+      margin: var(--navLinkMargin--desktop);
+    }
   }
 
   .logo {
@@ -247,10 +291,12 @@ const StyledHeaderWrapper = styled.div`
 
       display: flex;
       flex-direction: row;
+      margin: var(--responsiveItemsMargin--desktop);
     }
 
     .navPrimary__item {
       padding-right: 0.5rem;
+      width: auto;
     }
   }
 `;
