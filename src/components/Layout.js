@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import GlobalStyles from '../styles/GlobalStyles';
-import Header from './header.js/Header';
+import Header from './header/Header';
 
 const Layout = ({ children }) => (
   <StyledLayout>
